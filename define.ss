@@ -36,3 +36,9 @@
 (display (abs2 1))
 (display "\n")
 
+; 函数本身也是对象，也可以用变量名定义
+(define absxx abs2)
+(display (absxx -1))
+(display "\n")
+
+
