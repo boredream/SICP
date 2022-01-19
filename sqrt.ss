@@ -1,16 +1,17 @@
-; 求平方根，判断 x/y 和 y 的平均值，是否接近结果，如果不够，则将平均值作为y继续尝试
+; 求x平方根，牛顿逐步逼近法
+; 猜测数为y，从1开始猜测，看x/y和y的平均值是否符合需求，不符合则继续用该平均值作为猜测数继续下一轮
 (define (sqrt x)
-    (define tol 0.00001)
     (define (average a b)
         (/ (+ a b) 2))
-    (define (good-enuf y)
-        (< (abs (- (* y y) x)) tol))
+    (define (good-enuf? y)
+        (< (abs (- x (* y y))) 0.01))
     (define (improve y)
         (average (/ x y) y))
     (define (try y)
-        (if (good-enuf y) 
-        y 
-        (try(improve y))))
+        (if (good-enuf? y)
+            y
+            (try (improve y))))
     (try 1))
 
-(display (sqrt 16))
+
+(display (sqrt 2))
