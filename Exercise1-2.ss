@@ -53,15 +53,47 @@
 (define (f n) (A 2 n))
 
 ; 1.11 递归and迭代计算 fn
-; 递归
+; 递归 从上到下
 (define (f n)
     (if (< n 3) 
         n
-        (+ (f (- n 1)) (* 2 (f (- n 2))) (* 3 (f (- n 3))))))
+        (+ (f (- n 1)) 
+           (* 2 (f (- n 2))) 
+           (* 3 (f (- n 3))))))
 (display
 (f 4)
 )(newline)
 
-; 迭代 ？？？
+; 迭代 从下到上 ？？？
+(define (f n)
+    (define (f-i a b c count)
+        (cond ((< n 3) n)
+              ((<= count 0) a)
+              (else (f-i (+ a (* 2 b) (* 3 c)) a b (- count 1)))))
+    (f-i 2 1 0 (- n 2)))
+
+(display
+(f 4)
+)(newline)
+
+; 迭代
+(define (f n)
+    (define (f-i a b c count)
+        (if (<= count 0) 
+            a
+            (f-i (+ a (* 2 b) (* 3 c)) a b (- count 1))))
+    (f-i 2 1 0 (- n 2)))
+(display
+(f 4)
+)(newline)
+
+; 1.12 帕斯卡三角
+(define (p r c)
+    (if(or (= c 1) (= c r))
+       1
+       (+ (p (- r 1) (- c 1)) (p (- r 1) c))))
+(display (p 4 1))(display (p 4 2))(display (p 4 3))(display (p 4 4))
+(newline)
+
 
 
